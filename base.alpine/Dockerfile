@@ -12,6 +12,18 @@ COPY files/scripts/nop.sh /usr/bin/nop.sh
 COPY files/scripts/app.sh /usr/bin/app.sh
 COPY files/init.sh /init.sh
 
+# Install Docker client
+ARG DOCKER_CLI_VERSION="18.05.0-ce"
+ENV DOWNLOAD_URL="https://download.docker.com/linux/static/stable/x86_64/docker-$DOCKER_CLI_VERSION.tgz"
+
+RUN apk --update add curl \
+    && mkdir -p /tmp/download \
+    && curl -L $DOWNLOAD_URL | tar -xz -C /tmp/download \
+    && mv /tmp/download/docker/docker /usr/local/bin/ \
+    && rm -rf /tmp/download \
+    && apk del curl \
+    && rm -rf /var/cache/apk/*
+
 RUN \
     chmod +x /usr/bin/nop.sh /usr/bin/app.sh /init.sh && \
     apk add --no-cache --update su-exec tzdata curl openssl && \
