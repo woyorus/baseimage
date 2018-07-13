@@ -7,12 +7,7 @@ workdir=.cover
 profile="$workdir/cover.out"
 mode=count
 
-if [ "$#" -eq  "0" ] ; then
-    app="app"
-else
-    app=$1
-fi
-echo "generate coverage for $app"
+echo "generate code coverage"
 
 generate_cover_data() {
     rm -rf "$workdir"

@@ -1,7 +1,7 @@
 FROM golang:1.10-alpine
 
 # Install Docker client
-ARG DOCKER_CLI_VERSION="18.05.0-ce"
+ARG DOCKER_CLI_VERSION="18.03.1-ce"
 ENV DOWNLOAD_URL="https://download.docker.com/linux/static/stable/x86_64/docker-$DOCKER_CLI_VERSION.tgz"
 
 RUN apk --update add curl \
