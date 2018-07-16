@@ -26,7 +26,7 @@ RUN apk --update add curl \
 
 RUN \
     chmod +x /usr/bin/nop.sh /usr/bin/app.sh /init.sh && \
-    apk add --no-cache --update su-exec tzdata curl openssl && \
+    apk add --no-cache --update su-exec tzdata curl openssl bash && \
     ln -s /sbin/su-exec /usr/local/bin/gosu && \
     mkdir -p /home/$MYUSER && \
     adduser -s /bin/sh -D -u $MYUID $MYUSER && chown -R $MYUSER:$MYUSER /home/$MYUSER && \
