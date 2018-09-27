@@ -13,7 +13,7 @@ RUN apk --update add curl \
     && rm -rf /var/cache/apk/*
 
 RUN \
-    apk add --no-cache --update tzdata git bash curl libgit2 && \
+    apk add --no-cache --update tzdata git bash curl libgit2 alpine-sdk && \
     cp /usr/share/zoneinfo/America/Chicago /etc/localtime && \
     rm -rf /var/cache/apk/*
 
