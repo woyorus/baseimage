@@ -1,21 +1,20 @@
-FROM golang:1.11-alpine
+FROM golang:1.11-stretch
+
+RUN echo "deb http://ftp.debian.org/debian stretch-backports main" >> /etc/apt/sources.list.d/backports.list
 
 # Install Docker client
 ARG DOCKER_CLI_VERSION="18.03.1-ce"
 ENV DOWNLOAD_URL="https://download.docker.com/linux/static/stable/x86_64/docker-$DOCKER_CLI_VERSION.tgz"
 
-RUN apk --update add curl \
-    && mkdir -p /tmp/download \
+RUN \
+    apt-get update && apt-get install -y tzdata git bash curl libgit2-27 build-essential && \
+    cp /usr/share/zoneinfo/America/Chicago /etc/localtime && \
+    apt-get autoremove && apt-get autoclean
+
+RUN mkdir -p /tmp/download \
     && curl -L $DOWNLOAD_URL | tar -xz -C /tmp/download \
     && mv /tmp/download/docker/docker /usr/local/bin/ \
-    && rm -rf /tmp/download \
-    && apk del curl \
-    && rm -rf /var/cache/apk/*
-
-RUN \
-    apk add --no-cache --update tzdata git bash curl libgit2 alpine-sdk && \
-    cp /usr/share/zoneinfo/America/Chicago /etc/localtime && \
-    rm -rf /var/cache/apk/*
+    && rm -rf /tmp/download
 
 RUN go version
 
