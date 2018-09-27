@@ -1,4 +1,4 @@
-FROM golang:1.10-alpine
+FROM golang:1.11-alpine
 
 # Install Docker client
 ARG DOCKER_CLI_VERSION="18.03.1-ce"
@@ -13,7 +13,7 @@ RUN apk --update add curl \
     && rm -rf /var/cache/apk/*
 
 RUN \
-    apk add --no-cache --update tzdata git bash curl && \
+    apk add --no-cache --update tzdata git bash curl libgit2 && \
     cp /usr/share/zoneinfo/America/Chicago /etc/localtime && \
     rm -rf /var/cache/apk/*
 
