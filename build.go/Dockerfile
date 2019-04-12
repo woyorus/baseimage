@@ -5,6 +5,7 @@ RUN echo "deb http://ftp.debian.org/debian stretch-backports main" >> /etc/apt/s
 # Install Docker client
 ARG DOCKER_CLI_VERSION="18.03.1-ce"
 ENV DOWNLOAD_URL="https://download.docker.com/linux/static/stable/x86_64/docker-$DOCKER_CLI_VERSION.tgz"
+ENV RESTIC_DOWNLOAD_URL="https://wrs.nyc3.digitaloceanspaces.com/bin/restic-v0-9-4-linux-amd64.tar.gz"
 
 RUN \
     apt-get update && apt-get install -y tzdata git bash curl libgit2-27 build-essential && \
@@ -14,6 +15,9 @@ RUN \
 RUN mkdir -p /tmp/download \
     && curl -L $DOWNLOAD_URL | tar -xz -C /tmp/download \
     && mv /tmp/download/docker/docker /usr/local/bin/ \
+    && curl -L $RESTIC_DOWNLOAD_URL | tar -xz -C /tmp/download \
+    && mv /tmp/download/restic /usr/local/bin/ \
+    && chmod +x /usr/local/bin/restic \
     && rm -rf /tmp/download
 
 RUN go version
