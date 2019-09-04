@@ -1,6 +1,6 @@
-FROM golang:1.11-stretch
+FROM golang:1.13-buster
 
-RUN echo "deb http://ftp.debian.org/debian stretch-backports main" >> /etc/apt/sources.list.d/backports.list
+RUN echo "deb http://ftp.debian.org/debian buster-backports main" >> /etc/apt/sources.list.d/backports.list
 
 # Install Docker client
 ARG DOCKER_CLI_VERSION="18.03.1-ce"
